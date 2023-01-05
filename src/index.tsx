@@ -15,17 +15,17 @@ mergeStyles({
    },
 });
 
-let number = 0;
+let number = 'korea';
 
-
-const changRedux = (state?: number, action?: any) => {
-  state = number + 1;
-  if(action.type === 'insertId') {
-    number++;
-    return state;
-  }else {
-    return state;
-  }
+const changRedux = (state?: string, action?: any) => {
+   state = number;
+   if (action.type === 'english') {
+      number = 'english';
+      return number;
+   } else {
+      number = 'korea';
+      return number;
+   }
 };
 
 let store = createStore(changRedux);

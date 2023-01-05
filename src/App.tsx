@@ -15,7 +15,7 @@ export const App: React.FunctionComponent = () => {
       let listColumns2 = [];
       listColumns2.push({ key: name!, name: mail! });
       setfuser(listColumns2);
-      dispatch({ type: 'insertId' });
+     
  
       let listColumns = [];
       listColumns = users;
@@ -24,15 +24,23 @@ export const App: React.FunctionComponent = () => {
    };
 
    const onClickSetState2 = (name?: string, mail?: string) => {
-      const key = fuser.find((element) => element.key).key;
-      console.log(key)
-     
+      const key = users.find((element) => element.key).key;
+      const filtered = users.filter((element) => element.key !== key);
+      setUsers(filtered);
+   };
+
+   const onClickSetReducer = (name?: string, mail?: string) => {
+      const languege = dispatch({ type: 'korea' });    
+   };
+
+   const onClickSetReducer2 = (name?: string, mail?: string) => {
+      const languege = dispatch({ type: 'english' });    
    };
 
    const usersList = useMemo(() => {
       return (
          <>
-            {reduxId != 1 && <Text>{reduxId} : 추가 횟수</Text>}
+            <Text>{users.length} : 추가 횟수</Text>
             <br></br>
             {users.length > 0 && <Text>계정명 / 메일명</Text>}
             {users.map((element: any, index: number) => {
@@ -44,11 +52,12 @@ export const App: React.FunctionComponent = () => {
             })}
          </>
       );
-   }, [fuser, reduxId]);
+   }, [fuser, reduxId, users]);
 
    return (
       <Stack horizontalAlign="start" verticalAlign="start">
          <Stack horizontal>
+            {reduxId}
             <TextField
                placeholder="계정명"
                onChange={(event?: FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string | undefined) =>
@@ -63,6 +72,8 @@ export const App: React.FunctionComponent = () => {
             />
             <DefaultButton text="추가" onClick={() => onClickSetState(nameValue, mailValue)}></DefaultButton>
             <DefaultButton text="삭제" onClick={() => onClickSetState2(nameValue, mailValue)}></DefaultButton>
+            <DefaultButton text="한국말로 변경" onClick={() => onClickSetReducer()}></DefaultButton>
+            <DefaultButton text="영어로 변경" onClick={() => onClickSetReducer2()}></DefaultButton>
          </Stack>
          <Stack.Item>{usersList}</Stack.Item>
       </Stack>
